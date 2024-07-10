@@ -10,8 +10,7 @@ O Thcream é uma aplicação Spring desenvolvida para demonstrar a utilização 
 
 - **Java 11**
 - **Spring Boot 2.5.4**
-- 
-- **Maven**
+  - **Maven**
 
 ## 📁 Estrutura do Projeto
 
