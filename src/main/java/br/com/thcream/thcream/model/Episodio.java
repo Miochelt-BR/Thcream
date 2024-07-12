@@ -1,26 +1,32 @@
 package br.com.thcream.thcream.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Episodio {
     private Integer temporada;
     private String titulo;
     private Integer numeroEpisodio;
-    private double avaliacao;
+    private Double avaliacao;
     private LocalDate dataLancamento;
 
+    public Episodio(Integer numeroTemporada, DadosEpisodio dadosEpisodio) {
+        this.temporada = numeroTemporada;
+        this.titulo = dadosEpisodio.titulo();
+        this.numeroEpisodio = dadosEpisodio.numeroEpisodio();
 
-    public Episodio(Integer temporada, String titulo, Integer numeroEpisodio, double avaliacao, LocalDate dataLancamento, DadosEpisodio d) {
-        this.temporada = temporada;
-        this.titulo = titulo;
-        this.numeroEpisodio = numeroEpisodio;
-        this.avaliacao = Double.valueOf(d.avaliacao());
-        this.dataLancamento = LocalDate.parse(d.dataLancamento());
+        try {
+            this.avaliacao = Double.valueOf(dadosEpisodio.avaliacao());
+        } catch (NumberFormatException ex) {
+            this.avaliacao = 0.0;
+        }
+
+        try {
+            this.dataLancamento = LocalDate.parse(dadosEpisodio.dataLancamento());
+        } catch (DateTimeParseException ex) {
+            this.dataLancamento = null;
+        }
     }
-
-    public Episodio(Object temporada, String titulo, Integer numeroEpisodio, String avaliacao, DadosEpisodio d) {
-    }
-
 
     public Integer getTemporada() {
         return temporada;
@@ -46,11 +52,11 @@ public class Episodio {
         this.numeroEpisodio = numeroEpisodio;
     }
 
-    public double getAvaliacao() {
+    public Double getAvaliacao() {
         return avaliacao;
     }
 
-    public void setAvaliacao(double avaliacao) {
+    public void setAvaliacao(Double avaliacao) {
         this.avaliacao = avaliacao;
     }
 
@@ -61,4 +67,16 @@ public class Episodio {
     public void setDataLancamento(LocalDate dataLancamento) {
         this.dataLancamento = dataLancamento;
     }
+
+    @Override
+    public String toString() {
+        return "temporada=" + temporada +
+                ", titulo='" + titulo + '\'' +
+                ", numeroEpisodio=" + numeroEpisodio +
+                ", avaliacao=" + avaliacao +
+                ", dataLancamento=" + dataLancamento ;
+    }
 }
+
+
+
